@@ -1,0 +1,130 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
+    x:Class="spot_your_train_2.ApiresultStatus"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="LLSFloatingScrollbarStyle"
+               TargetType="phone:LongListSelector">
+            <Setter Property="Background"
+        		Value="Transparent" />
+            <Setter Property="Foreground"
+        		Value="{StaticResource PhoneForegroundBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="phone:LongListSelector">
+                        <Grid Background="{TemplateBinding Background}"
+        					d:DesignWidth="480"
+        					d:DesignHeight="800">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="ScrollStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.5" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Scrolling">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0"
+        										To="1"
+        										Storyboard.TargetProperty="Opacity"
+        										Storyboard.TargetName="VerticalScrollBar" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="NotScrolling" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid Margin="{TemplateBinding Padding}">
+
+                                <ViewportControl x:Name="ViewportControl"
+        							HorizontalContentAlignment="Stretch"
+        							VerticalAlignment="Top" />
+
+                                <ScrollBar x:Name="VerticalScrollBar"
+        							Margin="4,0,-12,0"
+        							Opacity="0"
+        							HorizontalAlignment="Right"
+        							Orientation="Vertical" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </phone:PhoneApplicationPage.Resources>
+
+
+    <phone:PhoneApplicationPage.FontFamily>
+        <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+    </phone:PhoneApplicationPage.FontFamily>
+    <phone:PhoneApplicationPage.FontSize>
+        <StaticResource ResourceKey="PhoneFontSizeNormal"/>
+    </phone:PhoneApplicationPage.FontSize>
+    <phone:PhoneApplicationPage.Foreground>
+        <StaticResource ResourceKey="PhoneForegroundBrush"/>
+    </phone:PhoneApplicationPage.Foreground>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+
+        <Grid x:Name="ContentPanel" Margin="0,2,0,63" Grid.RowSpan="2">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/sn.jpg"/>
+            </Grid.Background>
+            <phone:LongListSelector Style="{StaticResource LLSFloatingScrollbarStyle}" x:Name="resultlist" HorizontalAlignment="Left" Width="480" Height="709" VerticalAlignment="Top" Margin="0,-6,0,0">
+                <phone:LongListSelector.ItemTemplate>
+
+                    <DataTemplate>
+                        <Grid Background="Black" Margin="0,0,0,1"  Opacity="0.8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding station}" Grid.Row="0" Margin="0,0,5,0"  Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Right" FontSize="24" Foreground="#FF2567F5" FontFamily="Calibri" />
+
+                            <TextBlock Text="Sch Arr: " Opacity="0.7" Grid.Row="1" Grid.Column="0" Foreground="White" FontFamily="Times New Roman" />
+                            <TextBlock Text="{Binding scharr}" Grid.Row="1"  Grid.Column="1" FontWeight="Bold" Margin="50,0,0,0" Foreground="White" />
+                            <TextBlock Text="Sch Dep: " Opacity="0.7" Grid.Column="0" Grid.Row="2" Foreground="White" FontFamily="Times New Roman" />
+                            <TextBlock Text="{Binding schdep}" Grid.Column="1" Grid.Row="2" FontWeight="Bold" Margin="50,0,0,0" Foreground="White" />
+                            <TextBlock Text="Act Arr: " Opacity="0.7" FontFamily="Times New Roman" Grid.Column="0" Grid.Row="3" Foreground="White" />
+                            <TextBlock Text="{Binding actarr}" Grid.Column="1" Grid.Row="3" FontWeight="Bold" Margin="50,0,0,0" Foreground="White" />
+                            <TextBlock Text="Act Dep: " Opacity="0.7" FontFamily="Times New Roman" Grid.Column="0" Grid.Row="4" Foreground="White" />
+                            <TextBlock Text="{Binding actdep}" Grid.Column="1" Grid.Row="4" FontWeight="Bold" Margin="50,0,0,0" Foreground="White" />
+
+
+
+                            <TextBlock Text="{Binding status}" Margin="0,0,5,0" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"  Foreground="#FFFB7E00" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Calibri" FontSize="24"  />
+
+                        </Grid>
+                    </DataTemplate>
+
+                </phone:LongListSelector.ItemTemplate>
+            </phone:LongListSelector>
+            <ProgressBar x:Name="pb" IsIndeterminate="True" HorizontalAlignment="Left" Height="37" Margin="0,272,0,0" VerticalAlignment="Top" Width="470" Foreground="#FFF72510"/>
+
+        </Grid>
+        <UI:AdControl ApplicationId="a9b64c17-3701-47f0-8534-5b584b6c486e" AdUnitId="175154" HorizontalAlignment="Left" Height="80" Margin="0,688,0,0" Grid.Row="1" VerticalAlignment="Top" Width="480" Opacity="0.05"/>
+    </Grid>
+
+</phone:PhoneApplicationPage>
